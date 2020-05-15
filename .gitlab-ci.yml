@@ -18,7 +18,7 @@ deploy_stage:
     - ./node_modules/@angular/cli/bin/ng test --watch=false
     - ./node_modules/@angular/cli/bin/ng e2e --help
     - ./node_modules/@angular/cli/bin/ng build --prod --base-href https://sahabicky.github.io/my-cool-proj/
-    - ./node_modules/@angular/cli/bin/ngh --dir dist/my-cool-proj
+    #- ./node_modules/@angular/cli/bin/ngh --dir dist/my-cool-proj
     - echo "Completed deployment to staging server"
     # - ./node_modules/@angular/cli/bin/ng build --prod --base-href puny-skirt.surge.sh/
     # - ./node_modules/.bin/surge -p dist/ --domain puny-skirt.surge.sh/
