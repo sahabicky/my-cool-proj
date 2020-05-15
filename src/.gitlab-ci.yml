@@ -1,0 +1,48 @@
+image: trion/ng-cli-karma
+
+cache:
+  paths:
+    - node_modules/
+
+deploy_stage:
+  stage: deploy
+  environment:
+    name: Stage
+
+  only:
+    - master
+  script:
+    - echo "Start deploying to staging server"
+    - rm ./package-lock.json
+    - npm install
+    - ./node_modules/@angular/cli/bin/ng test --watch=false
+    - ./node_modules/@angular/cli/bin/ng e2e --help
+    - ./node_modules/@angular/cli/bin/ng build --prod --base-href https://sahabicky.github.io/my-cool-proj/
+    - ./node_modules/@angular/cli/bin/ngh --dir dist/my-cool-proj
+    - echo "Completed deployment to staging server"
+    # - ./node_modules/@angular/cli/bin/ng build --prod --base-href puny-skirt.surge.sh/
+    # - ./node_modules/.bin/surge -p dist/ --domain puny-skirt.surge.sh/
+# deploy_production:
+#   stage: deploy
+#   environment:
+#     name: Production
+#     url: https://sahabicky.gitlab.io/static-website/
+#   only:
+#     - tags
+#   script:
+#     - echo "Production"
+#     - rm ./package-lock.json
+#     - npm install
+#     - ./node_modules/@angular/cli/bin/ng test --watch=false
+#     - ./node_modules/@angular/cli/bin/ng e2e --help
+#     - ./node_modules/@angular/cli/bin/ng build --progress false
+#    - ./node_modules/@angular/cli/bin/ng build --progress false --prod --base-href puny-skirt.surge.sh/
+#    - ./node_modules/.bin/surge -p dist/ --domain puny-skirt.surge.sh/
+#git config --global user.name "sahabicky"
+#git config --global user.email "bikisaha17@yahoo.com"
+#git remote origin https://sahabicky@bitbucket.org/sahabicky/check-multiple-push.git
+#git remote add upstream https://gitlab.com/Sahabicky/multiple-push-check.git
+#git remote add upstreamtwo https://sahabicky@bitbucket.org/sahabicky/check-multiple-push.git
+#git remote add staging https://sahabicky@bitbucket.org/sahabicky/check-multiple-push.git
+#git remote add parallel git@bitbucket.org:sahabicky/check-multiple-push.git
+#git fetch git merge == git pull
